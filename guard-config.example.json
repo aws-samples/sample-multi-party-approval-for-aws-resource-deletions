@@ -1,0 +1,30 @@
+{
+  "organizationalUnitIds": ["ou-abcd-11111111"],
+  "attachScps": false,
+  "stackSetCallAs": "SELF",
+  "allowedTargetRegions": ["eu-west-1", "eu-central-1", "us-east-1"],
+  "approvals": {
+    "level1": {
+      "permissionSets": ["DeletionApproverTeamLead"],
+      "principalArns": [],
+      "minApprovals": 1,
+      "notificationEmails": []
+    },
+    "level2": {
+      "permissionSets": ["DeletionApproverSecurity"],
+      "principalArns": [],
+      "minApprovals": 1,
+      "notificationEmails": []
+    }
+  },
+  "approvalTimeoutHours": 72,
+  "notificationEmails": [],
+  "terraform": {
+    "version": "1.17.2",
+    "buildImage": "",
+    "applyManagedPolicyArns": ["arn:aws:iam::aws:policy/PowerUserAccess"]
+  },
+  "additionalExemptPrincipalArns": [],
+  "platformAdminPrincipalArns": [],
+  "centralEventBusArn": ""
+}

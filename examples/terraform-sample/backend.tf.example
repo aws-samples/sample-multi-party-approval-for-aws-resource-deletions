@@ -1,0 +1,13 @@
+# Copy to backend.tf and fill in your values.
+#
+# The approved path runs Terraform in CodeBuild, so the state MUST be remote:
+# the plan build reads it (read-only, -lock=false) and the apply build updates it.
+terraform {
+  backend "s3" {
+    bucket       = "<your-terraform-state-bucket>"
+    key          = "deletion-guard-sample/terraform.tfstate"
+    region       = "<state-bucket-region>"
+    encrypt      = true
+    use_lockfile = true
+  }
+}

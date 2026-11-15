@@ -1,0 +1,42 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "StartDeletionGuardRequests",
+      "Effect": "Allow",
+      "Action": "ssm:StartAutomationExecution",
+      "Resource": [
+        "arn:aws:ssm:*:*:automation-definition/DeletionGuard-DeleteResource:*",
+        "arn:aws:ssm:*:*:automation-definition/DeletionGuard-TerraformChange:*",
+        "arn:aws:ssm:*:*:document/DeletionGuard-DeleteResource",
+        "arn:aws:ssm:*:*:document/DeletionGuard-TerraformChange"
+      ]
+    },
+    {
+      "Sid": "PassTheRunbookRoleOnly",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::*:role/DeletionGuard-RunbookRole",
+      "Condition": { "StringEquals": { "iam:PassedToService": "ssm.amazonaws.com" } }
+    },
+    {
+      "Sid": "TrackOwnRequests",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetAutomationExecution",
+        "ssm:DescribeAutomationExecutions",
+        "ssm:DescribeAutomationStepExecutions",
+        "ssm:StopAutomationExecution",
+        "ssm:DescribeDocument",
+        "ssm:GetDocument"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ReadPlans",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::deletion-guard-plans-*", "arn:aws:s3:::deletion-guard-plans-*/*"]
+    }
+  ]
+}

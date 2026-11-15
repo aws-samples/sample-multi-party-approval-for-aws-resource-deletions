@@ -1,0 +1,35 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ApproveOrRejectDeletionGuardRequests",
+      "Effect": "Allow",
+      "Action": "ssm:SendAutomationSignal",
+      "Resource": "arn:aws:ssm:*:*:automation-execution/*"
+    },
+    {
+      "Sid": "ReviewRequests",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetAutomationExecution",
+        "ssm:DescribeAutomationExecutions",
+        "ssm:DescribeAutomationStepExecutions",
+        "ssm:DescribeDocument",
+        "ssm:GetDocument",
+        "ssm:ListDocuments",
+        "cloudformation:GetResource",
+        "cloudformation:ListResources",
+        "codebuild:BatchGetBuilds",
+        "logs:GetLogEvents",
+        "logs:FilterLogEvents"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ReadPlans",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::deletion-guard-plans-*", "arn:aws:s3:::deletion-guard-plans-*/*"]
+    }
+  ]
+}
